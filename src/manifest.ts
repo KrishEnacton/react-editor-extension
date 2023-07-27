@@ -1,7 +1,7 @@
 import { defineManifest } from '@crxjs/vite-plugin'
 
 export default defineManifest({
-  name: 'Editor coupon scrapper',
+  name: 'React Editor coupon scrapper',
   description: 'Coupomated Editor Extension',
   version: '0.0.1',
   manifest_version: 3,
