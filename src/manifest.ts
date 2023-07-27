@@ -1,19 +1,19 @@
 import { defineManifest } from '@crxjs/vite-plugin'
 
 export default defineManifest({
-  name: 'create-chrome-ext',
-  description: 'Boilerplate extension integrated with tailwindcss.',
+  name: 'Editor coupon scrapper',
+  description: 'Coupomated Editor Extension',
   version: '0.0.1',
   manifest_version: 3,
   icons: {
-    '16': 'img/logo-16.png',
-    '32': 'img/logo-34.png',
-    '48': 'img/logo-48.png',
-    '128': 'img/logo-128.png',
+    '16': 'img/icon16.png',
+    '19': 'img/icon19.png',
+    '40': 'img/icon40.png',
+    '48': 'img/icon48.png',
   },
   action: {
     default_popup: 'popup.html',
-    default_icon: 'img/logo-48.png',
+    default_icon: 'img/icon48.png',
   },
   options_page: 'options.html',
   background: {
@@ -28,8 +28,14 @@ export default defineManifest({
   ],
   web_accessible_resources: [
     {
-      resources: ['img/logo-16.png', 'img/logo-34.png', 'img/logo-48.png', 'img/logo-128.png', 'src/styles/output.css'],
-      matches: [],
+      resources: [
+        'img/icon16.png',
+        'img/icon19.png',
+        'img/icon40.png',
+        'img/icon48.png',
+        'src/styles/output.css',
+      ],
+      matches: ['<all_urls>'],
       use_dynamic_url: true,
     },
   ],
