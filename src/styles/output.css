@@ -526,10 +526,6 @@ video {
   position: fixed;
 }
 
-.absolute {
-  position: absolute;
-}
-
 .right-\[300px\] {
   right: 300px;
 }

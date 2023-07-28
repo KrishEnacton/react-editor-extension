@@ -12,15 +12,14 @@ export const Login = () => {
       },
       () => {
         notify('Token saved!', 'success')
-        navigate('/')
+        navigate('/dashboard')
       },
     )
   }
   useEffect(() => {
     chrome.storage.local.get(['editor_token'], (result) => {
       if (result.editor_token) {
-        navigate('/')
-        return
+        navigate('/dashboard')
       }
     })
   }, [])

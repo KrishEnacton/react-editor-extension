@@ -1,7 +1,8 @@
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import withAuth from '../components/WithAuth'
 
-export const Dashboard = () => {
+ const Dashboard = () => {
   const navigate = useNavigate()
   useEffect(() => {
     chrome.storage.local.get(['editor_token'], (result) => {
@@ -14,3 +15,5 @@ export const Dashboard = () => {
 
   return <div>Dashboard</div>
 }
+
+export default withAuth(Dashboard)

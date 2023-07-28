@@ -1,16 +1,16 @@
-import { ToastContainer } from 'react-toastify';
-  import 'react-toastify/dist/ReactToastify.css';
-import { HashRouter, Route, Routes } from 'react-router-dom';
-import { Login } from './sections/login';
-import { Dashboard } from './sections/dashboard';
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import { HashRouter, Route, Routes } from 'react-router-dom'
+import Dashboard from './sections/dashboard'
+import { Login } from './sections/login'
 
 function App() {
   return (
     <main className="flex items-center justify-center h-screen">
       <HashRouter>
         <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/" element={<Dashboard />} />
+          <Route path="/" element={<Login />} />
+          <Route path="/dashboard" element={<Dashboard />} />
         </Routes>
       </HashRouter>
       <ToastContainer />
