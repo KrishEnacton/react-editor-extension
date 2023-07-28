@@ -1,5 +1,5 @@
 import { toast } from 'react-toastify'
-import { MerchantConfigs } from '../content'
+import { config } from './config'
 
 export function notify(message: string, type: 'error' | 'warning' | 'info' | 'success') {
   if (type === 'error') {
@@ -32,11 +32,9 @@ export function injectStyles() {
   return linkElement
 }
 
-
 export function getCurrentTab() {
   return new Promise((resolve, reject) => {
-    chrome.tabs.query({ active: true}, (tabs) => {
-      console.log({tabs})
+    chrome.tabs.query({ active: true }, (tabs) => {
       if (tabs[0]) {
         resolve(tabs[0])
       } else {
@@ -49,7 +47,7 @@ export function getCurrentTab() {
 export function getCurrentMerchant() {
   return new Promise((resolve, reject) => {
     getCurrentTab().then((tab: any) => {
-      const merchants = Object.values(MerchantConfigs)
+      const merchants = Object.values(config.merchantConfigs)
       const currentTabUrl = new URL(tab.url)
       const currentMerchant: any = merchants.find((merchant: any) => {
         if (!merchant.url) return
@@ -63,3 +61,5 @@ export function getCurrentMerchant() {
     })
   }) as Promise<any>
 }
+
+export const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))

@@ -1,3 +1,9 @@
+import { CouponDuniaConfig } from "../content/MerchantConfigs/CouponDunia";
+import { GrabonConfig } from "../content/MerchantConfigs/Grabon";
+import { ZifupConfig } from "../content/MerchantConfigs/Zifup";
+import { ZingoyConfig } from "../content/MerchantConfigs/Zingoy";
+import { ZoutonsConfig } from "../content/MerchantConfigs/Zoutons";
+
 export const config = {
   editor_auth_token: 'ce1e9209-c8ae-4f75-b96c-c4c116dfa90e',
   spa_regex: 'editor.coupomated.com',
@@ -10,6 +16,13 @@ export const config = {
   admin_panel_dashboard: 'https://editor.coupomated.com/',
   version: '1.1.4',
   release_date: '21st July, 2023',
+  merchantConfigs : [
+    CouponDuniaConfig,
+    ZifupConfig,
+    ZoutonsConfig,
+    GrabonConfig,
+    ZingoyConfig
+  ],
   affiliate_params: [
     'utm_source',
     'utm_medium',
