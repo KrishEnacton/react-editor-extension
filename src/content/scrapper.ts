@@ -1,3 +1,5 @@
+import { CouponDuniaConfig } from './MerchantConfigs/CouponDunia'
+
 export const scrapper = (config: any) => {
   let dataSet = Array.from(document.querySelectorAll(config.wrapper)).map((htmlElem, index) => {
     let elemData: any = {}
@@ -7,6 +9,10 @@ export const scrapper = (config: any) => {
       }
     }
     elemData['key'] = index
+    htmlElem.style.backgroundColor = '#d1ecf1'
+    if (config['wrapper'] == CouponDuniaConfig.wrapper) {
+      htmlElem.querySelector('div[class="offer-card-main"]').style.backgroundColor = '#d1ecf1'
+    }
     return elemData
   })
   return dataSet

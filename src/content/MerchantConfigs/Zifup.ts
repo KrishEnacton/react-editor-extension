@@ -1,6 +1,6 @@
 export const ZifupConfig = {
   name: 'Zifup',
-  url: 'https://www.zifup.com/',
+  url: 'https://zifup.com/',
   wrapper: 'div[class="flex flex-col justify-between h-full zf-cpn"]',
   additional_wrapper: '#zf-deal',
   source_coupon_id: {

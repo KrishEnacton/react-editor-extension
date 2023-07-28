@@ -36,7 +36,7 @@ export function injectStyles() {
 export function getCurrentTab() {
   return new Promise((resolve, reject) => {
     chrome.tabs.query({ active: true }, (tabs) => {
-      if (tabs[0]) {
+      if (tabs.length > 0) {
         resolve(tabs[0])
       } else {
         reject('No active tab')
@@ -47,31 +47,28 @@ export function getCurrentTab() {
 
 export function getCurrentMerchant(tab?: chrome.tabs.Tab | undefined) {
   return new Promise((resolve, reject) => {
-    if (tab) {
+    const findCurrentMerchant = (tabUrl: URL) => {
       const merchants = Object.values(config.merchantConfigs)
-      if (!tab.url) return
-      const currentTabUrl = new URL(tab.url)
-      const currentMerchant: any = merchants.find((merchant: any) => {
+      const currentMerchant = merchants.find((merchant: any) => {
         if (!merchant.url) return
         const merchantUrl = new URL(merchant.url)
-        if (merchantUrl.hostname === currentTabUrl.hostname) return merchant
+        return merchantUrl.hostname === tabUrl.hostname
       })
-      if (!currentMerchant) {
-        reject('No merchant found')
-      }
+      return currentMerchant
+    }
+
+    if (tab) {
+      if (!tab.url) return reject('No tab URL')
+      const currentTabUrl = new URL(tab.url)
+      const currentMerchant = findCurrentMerchant(currentTabUrl)
+      if (!currentMerchant) return reject('No merchant found')
       resolve(currentMerchant)
     } else {
       getCurrentTab().then((tab: any) => {
-        const merchants = Object.values(config.merchantConfigs)
+        if (!tab.url) return reject('No tab URL')
         const currentTabUrl = new URL(tab.url)
-        const currentMerchant: any = merchants.find((merchant: any) => {
-          if (!merchant.url) return
-          const merchantUrl = new URL(merchant.url)
-          if (merchantUrl.hostname === currentTabUrl.hostname) return merchant
-        })
-        if (!currentMerchant) {
-          reject('No merchant found')
-        }
+        const currentMerchant = findCurrentMerchant(currentTabUrl)
+        if (!currentMerchant) return reject('No merchant found')
         resolve(currentMerchant)
       })
     }

@@ -20,10 +20,9 @@ chrome.tabs.onUpdated.addListener(async function (tabId, changeInfo, tab) {
     if (tab.url) {
       const url = new URL(tab.url)
       const currentMerchant = await getCurrentMerchant(tab)
-      console.log({ currentMerchant })
       if (url.searchParams.get('autoscrape') && Object.values(currentMerchant).length > 0) {
         chrome.tabs.sendMessage(tabId, {
-          action: 'START_AUTO_SCRAPING',
+          action: 'START_AUTO_SCRAPPING',
           payload: { currentMerchant },
         })
       }

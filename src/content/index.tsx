@@ -12,9 +12,9 @@ chrome.runtime.sendMessage({ action: 'GET_CURRENT_MERCHANT' }, (response) => {
 })
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-  console.log({ request })
-  if (request.action === 'START_AUTO_SCRAPING') {
-    console.log('auto scrape start', scrapingData(request.payload.currentMerchant))
+  if (request.action === 'START_AUTO_SCRAPPING') {
+    const scrappedData = scrapingData(request.payload.currentMerchant)
+    document.querySelector('#coupomated-injected-modal')?.remove()
   }
   return true
 })

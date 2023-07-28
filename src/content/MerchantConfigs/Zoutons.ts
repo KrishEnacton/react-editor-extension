@@ -1,6 +1,6 @@
 export const ZoutonsConfig = {
   name: 'Zoutons',
-  url: 'https://www.zoutons.com/',
+  url: 'https://zoutons.com/',
   wrapper: '.content > section:not([class]) > ul > li .offers_snippets',
   source_coupon_id: {
     type: 'attribute',
