@@ -1,4 +1,6 @@
 export const ZingoyConfig = {
+    name: "Zingoy",
+    url: "https://www.zingoy.com/",
     wrapper: ".deals__content > .cf",
     source_coupon_id: {
       type: "attribute",

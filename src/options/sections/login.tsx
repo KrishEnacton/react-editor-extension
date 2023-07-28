@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { notify } from '../../utils'
 import { useNavigate } from 'react-router-dom'
 
@@ -16,6 +16,15 @@ export const Login = () => {
       },
     )
   }
+  useEffect(() => {
+    chrome.storage.local.get(['editor_token'], (result) => {
+      if (result.editor_token) {
+        navigate('/')
+        return
+      }
+    })
+  }, [])
+  
   return (
     <div className="mx-auto w-1/4 p-12 m-4 rounded-lg bg-[#fafafc] border border-[#e9e9f2]">
       <div className="text-center text-xl font-semibold">Saved Tokens</div>

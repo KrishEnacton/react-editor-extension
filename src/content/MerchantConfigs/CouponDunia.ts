@@ -1,4 +1,6 @@
 export const CouponDuniaConfig =  {
+  name: "CouponDunia",
+    url: "https://www.coupondunia.in/",
     wrapper: ".ofr-card-wrap.revert",
     source_coupon_id: {
       type: "attribute",

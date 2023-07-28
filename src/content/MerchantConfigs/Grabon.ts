@@ -1,4 +1,6 @@
 export const GrabonConfig = {
+    name: "Grabon",
+    url: "https://www.grabon.in/",
     wrapper:
       'section[class="gm-c"] > div > div[class="gmc-cl"] > ul > li .gc-box',
     source_coupon_id: {
