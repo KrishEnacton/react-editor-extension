@@ -1,5 +1,6 @@
 import { toast } from 'react-toastify'
 import { config } from './config'
+import { scrapper } from '../content/scrapper'
 
 export function notify(message: string, type: 'error' | 'warning' | 'info' | 'success') {
   if (type === 'error') {
@@ -44,10 +45,11 @@ export function getCurrentTab() {
   })
 }
 
-export function getCurrentMerchant() {
+export function getCurrentMerchant(tab?: chrome.tabs.Tab | undefined) {
   return new Promise((resolve, reject) => {
-    getCurrentTab().then((tab: any) => {
+    if (tab) {
       const merchants = Object.values(config.merchantConfigs)
+      if (!tab.url) return
       const currentTabUrl = new URL(tab.url)
       const currentMerchant: any = merchants.find((merchant: any) => {
         if (!merchant.url) return
@@ -58,8 +60,26 @@ export function getCurrentMerchant() {
         reject('No merchant found')
       }
       resolve(currentMerchant)
-    })
+    } else {
+      getCurrentTab().then((tab: any) => {
+        const merchants = Object.values(config.merchantConfigs)
+        const currentTabUrl = new URL(tab.url)
+        const currentMerchant: any = merchants.find((merchant: any) => {
+          if (!merchant.url) return
+          const merchantUrl = new URL(merchant.url)
+          if (merchantUrl.hostname === currentTabUrl.hostname) return merchant
+        })
+        if (!currentMerchant) {
+          reject('No merchant found')
+        }
+        resolve(currentMerchant)
+      })
+    }
   }) as Promise<any>
+}
+
+export function scrapingData(config: any) {
+  return scrapper(config)
 }
 
 export const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))

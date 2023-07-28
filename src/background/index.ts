@@ -17,12 +17,15 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 chrome.tabs.onUpdated.addListener(async function (tabId, changeInfo, tab) {
   if (changeInfo.status === 'complete') {
     await sleep(1000)
-    console.log('called', tab.url)
     if (tab.url) {
       const url = new URL(tab.url)
-      console.log('data:', url.searchParams.get('autoscrape'))
-      if (url.searchParams.get('autoscrape')) {
-        chrome.tabs.sendMessage(tabId, { action: 'START_AUTO_SCRAPING' })
+      const currentMerchant = await getCurrentMerchant(tab)
+      console.log({ currentMerchant })
+      if (url.searchParams.get('autoscrape') && Object.values(currentMerchant).length > 0) {
+        chrome.tabs.sendMessage(tabId, {
+          action: 'START_AUTO_SCRAPING',
+          payload: { currentMerchant },
+        })
       }
     }
   }
