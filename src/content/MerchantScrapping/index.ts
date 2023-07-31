@@ -26,4 +26,5 @@ export function startScrapping(merchantConfig: any) {
   const FilteredCoupons = excludeCompetitorMerchant(postProcessValue)
 
   console.log({ FilteredCoupons })
+  alert('Scrapping done')
 }
