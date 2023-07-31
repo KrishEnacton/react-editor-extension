@@ -83,6 +83,91 @@ export function getDescription(description: string) {
     .join('')
 }
 
-export function excludeCompetitorMerchant() {
-  console.log('excludeCompetitorMerchant')
+export function excludeCompetitorMerchant(coupons: any) {
+  if (!coupons || coupons.length == 0) return []
+  const filteredValue = coupons.filter((coupon: any) => {
+    if (coupon.coupon_code == '') return coupon
+
+    const isIncluded: any = config.coupon_rejection_keywords.filter((key: string) => {
+      if (new RegExp(`${key}`, 'gi').test(coupon.coupon_code)) {
+        return key
+      }
+    })
+    if (isIncluded?.length == 0) return coupon
+  })
+  return filteredValue
+}
+
+export function remove_affiliate_params(clean_url: string) {
+  const url = new URL(clean_url)
+  const strip_parameters = config.affiliate_params
+  const obj = Object.fromEntries(new URLSearchParams(url.search))
+  let final_url
+
+  Object.keys(obj).forEach((key) => {
+    if (strip_parameters.includes(key) || strip_parameters.includes(obj[key])) {
+      delete obj[key]
+    }
+  })
+
+  const queryString = getParsedQuery(obj)
+
+  final_url = clean_url?.split('?')[0] + (queryString?.length > 2 ? `?${queryString}` : '')
+
+  return final_url
+}
+
+function getParsedQuery(params: any) {
+  return Object.keys(params)
+    .filter((e) => params[e] !== null)
+    .map((key) => {
+      if (Array.isArray(params[key])) {
+        if (params[key].length) {
+          const prefix = `${key}=`
+          // const arrData = params[key].join(`&${key}=`);
+          const arrData = params[key].join(`&${key}=`)
+          return prefix + arrData
+        } else {
+          return 'null'
+        }
+      } else if (typeof params[key] === 'object') {
+        return Object.keys(params[key])
+          .map((objectKey) => {
+            if (Array.isArray(params[key][objectKey])) {
+              if (params[key][objectKey].length) {
+                const prefix = `${key}[${objectKey}][]=`
+                const arrData = params[key][objectKey].join(`&${key}[${objectKey}][]=`)
+                return prefix + arrData
+              } else {
+                return 'null'
+              }
+            } else if (params[key][objectKey] !== null) {
+              return `${key}[${objectKey}]=${params[key][objectKey]}`
+            } else {
+              return null
+            }
+          })
+          .filter((e) => e !== 'null')
+          .join('&')
+      } else {
+        return `${key}=${params[key]}`
+      }
+    })
+    .filter((e) => e !== 'null')
+    .join('&')
+}
+
+function openTabInBackground(url: string) {
+  chrome.tabs.create({ url: url, active: false })
+}
+
+export const replace_nth = function (s: string, f: string, r: string, n: string) {
+  // From the given string s, replace f with r of nth occurrence
+  return s.replace(RegExp('^(?:.*?' + f + '){' + n + '}'), (x) => x.replace(RegExp(f + '$'), r))
+}
+
+export function jsToMysqlDate(d: Date) {
+  return `${d.getFullYear()}-${
+    d.getMonth() + 1
+  }-${d.getDate()} ${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}`
 }
