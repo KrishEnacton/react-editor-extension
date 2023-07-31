@@ -1,7 +1,31 @@
+import { getDescription } from '../../utils'
+
 export const CouponDuniaConfig = {
   name: 'CouponDunia',
   url: 'https://www.coupondunia.in/',
   wrapper: '.ofr-card-wrap.revert',
+  postprocess: (dataset: any) => {
+    return dataset.map((item: any) => {
+      item.affiliate_link =
+        new URL(window.location.href).origin +
+        '/load-offer/' +
+        item['source_coupon_id'] +
+        '?adBlocker=false'
+      item.raw_categories = item.raw_categories?.split(',')
+      item.exclusive = item.exclusive ? true : false
+      item.verified_at = item.verified_at?.replace('Verified ', '')
+      // console.log({ end_date: item.end_date });
+      item.end_date = item.end_date
+        ? Date.parse(item.end_date)
+          ? new Date(item.end_date)
+          : item.end_date.replace('Expiring in ', '')
+        : ''
+      item.description = item.description
+        ? getDescription(CouponDuniaConfig?.description?.selector)
+        : ''
+      return item
+    })
+  },
   source_coupon_id: {
     type: 'attribute',
     attribute: 'data-offer-id',

@@ -75,3 +75,14 @@ export function getCurrentMerchant(tab?: chrome.tabs.Tab | undefined) {
 }
 
 export const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
+
+export function getDescription(description: string) {
+  //@ts-ignore
+  return [...document.querySelector(description).querySelectorAll('li')]
+    .map((li) => li.innerText)
+    .join('')
+}
+
+export function excludeCompetitorMerchant() {
+  console.log('excludeCompetitorMerchant')
+}
