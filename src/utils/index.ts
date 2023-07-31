@@ -1,6 +1,5 @@
 import { toast } from 'react-toastify'
 import { config } from './config'
-import { scrapper } from '../content/scrapper'
 
 export function notify(message: string, type: 'error' | 'warning' | 'info' | 'success') {
   if (type === 'error') {
@@ -73,10 +72,6 @@ export function getCurrentMerchant(tab?: chrome.tabs.Tab | undefined) {
       })
     }
   }) as Promise<any>
-}
-
-export function scrapingData(config: any) {
-  return scrapper(config)
 }
 
 export const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
