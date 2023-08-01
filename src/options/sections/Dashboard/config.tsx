@@ -1,5 +1,5 @@
 import { SortingFn, createColumnHelper, sortingFns } from '@tanstack/react-table'
-import { RankingInfo, rankItem, compareItems } from '@tanstack/match-sorter-utils'
+import { compareItems } from '@tanstack/match-sorter-utils'
 import { MerchantType } from '../../../global'
 import { openTabInBackground } from '../../../utils'
 import { Column, Table } from '@tanstack/react-table'
@@ -64,6 +64,8 @@ export function Filter({ column, table }: { column: Column<any, unknown>; table:
       </div>
       <div className="h-1" />
     </div>
+  ) : typeof firstValue === 'object' ? (
+    <div></div>
   ) : (
     <>
       <datalist id={column.id + 'list'}>
