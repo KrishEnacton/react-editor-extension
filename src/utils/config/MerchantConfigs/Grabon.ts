@@ -1,4 +1,4 @@
-import { getDescription } from '../../utils'
+import { getDescription } from '../..'
 export const GrabonConfig = {
   name: 'GrabOn',
   url: 'https://www.grabon.in/',

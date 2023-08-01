@@ -1,4 +1,4 @@
-import { CouponDuniaConfig } from './MerchantConfigs/CouponDunia'
+import { CouponDuniaConfig } from '../utils/config/MerchantConfigs/CouponDunia'
 
 export const scrapper = (config: any) => {
   let dataSet = Array.from(document.querySelectorAll(config.wrapper)).map((htmlElem, index) => {

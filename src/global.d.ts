@@ -20,3 +20,16 @@ export interface MerchantType {
   stats: any[]
   website_merchants: any[]
 }
+export interface CouponType {
+  coupon_code?: string
+  source?: string
+  source_id?: string
+  source_coupon_id?: string
+  merchant_id?: string
+  raw_title?: string
+  raw_description?: string
+  offer_type?: string
+  discount?: string
+  affiliate_link?: string
+  end_date?: string
+}

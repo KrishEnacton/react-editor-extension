@@ -1,8 +1,8 @@
-import { CouponDuniaConfig } from '../content/MerchantConfigs/CouponDunia'
-import { GrabonConfig } from '../content/MerchantConfigs/Grabon'
-import { ZifupConfig } from '../content/MerchantConfigs/Zifup'
-import { ZingoyConfig } from '../content/MerchantConfigs/Zingoy'
-import { ZoutonsConfig } from '../content/MerchantConfigs/Zoutons'
+import { CouponDuniaConfig } from './MerchantConfigs/CouponDunia'
+import { GrabonConfig } from './MerchantConfigs/Grabon'
+import { ZifupConfig } from './MerchantConfigs/Zifup'
+import { ZingoyConfig } from './MerchantConfigs/Zingoy'
+import { ZoutonsConfig } from './MerchantConfigs/Zoutons'
 
 export const config = {
   editor_auth_token: 'ce1e9209-c8ae-4f75-b96c-c4c116dfa90e',
@@ -70,5 +70,6 @@ export const config = {
   getUserInfoEndpoint: '/api/editor/my/info',
   getMerchantsEndpoint: '/api/editor/my/merchants',
   logOutEndPoint: '/api/editor/my/logout',
+  bulkUploadPoint: '/api/editor/coupon/bulk',
   coupon_rejection_keywords: ['CD'],
 }

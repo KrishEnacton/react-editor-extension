@@ -1,6 +1,7 @@
 import { useStorage } from '../hooks/useStorage'
 import { config } from '../utils/config'
 import { api } from '../api/apiProvider'
+import { CouponType } from '../global'
 
 export function useAPIFunctions() {
   function getUserInfo() {
@@ -27,9 +28,22 @@ export function useAPIFunctions() {
       console.log({ res })
     })
   }
+
+  function bulkCouponsUpload(body: CouponType[]) {
+    return new Promise((resolve) => {
+      api
+        .post(config.local_url + config.bulkUploadPoint, {
+          body,
+        })
+        .then((res: any) => {
+          resolve(res)
+        })
+    })
+  }
   return {
     getUserInfo,
     getMerchantList,
     logOut,
+    bulkCouponsUpload,
   }
 }

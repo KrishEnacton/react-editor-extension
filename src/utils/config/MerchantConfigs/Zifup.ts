@@ -1,4 +1,4 @@
-import { getDescription, jsToMysqlDate } from '../../utils'
+import { getDescription, jsToMysqlDate } from '../..'
 
 export const ZifupConfig = {
   name: 'Zifup',

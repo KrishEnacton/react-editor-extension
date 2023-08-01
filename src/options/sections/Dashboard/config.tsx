@@ -12,7 +12,9 @@ export const MerchantColumns: any = [
     header: 'Auto Sources (Number of comp. + direct merchant)',
     cell: (props) => {
       return props.row.original.website_merchants.map((merchant) => (
-        <div className="flex items-center">{merchant.url}</div>
+        <a href={merchant.url} target="_blank" className="flex items-center text-blue-600">
+          {merchant.url}
+        </a>
       ))
     },
   }),
@@ -42,7 +44,7 @@ export const MerchantColumns: any = [
           onClick={() => {
             openTabInBackground([...props.row.original.website_merchants].map((i) => i.url))
           }}
-          className="flex items-center"
+          className="flex items-center bg-blue-200 text-black p-3 rounded-md"
         >{`Click to open all the merchants`}</button>
       )
     },

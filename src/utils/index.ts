@@ -168,7 +168,7 @@ function getParsedQuery(params: any) {
 export function openTabInBackground(urls: string[]) {
   urls.map((url) => {
     let newUrl
-    if (url.includes('?')) {
+    if (!url.includes('?')) {
       newUrl = url + '?auto_scrape=1'
     } else newUrl = url + '&auto_scrape=1'
     chrome.tabs.create({ url: newUrl, active: false })

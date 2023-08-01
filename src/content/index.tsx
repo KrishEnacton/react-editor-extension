@@ -1,8 +1,8 @@
 import ReactDOM from 'react-dom/client'
 import { RootElement, injectStyles } from '../utils'
 import Modal from './Modal/components/Modal'
-import { startScrapping } from './MerchantScrapping'
 import { config } from '../utils/config'
+import { startScrapping } from './Scrapping'
 
 chrome.runtime.sendMessage({ action: 'GET_CURRENT_MERCHANT' }, (response) => {
   if (!response) return

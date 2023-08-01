@@ -1,4 +1,4 @@
-import { getDescription, jsToMysqlDate, replace_nth } from '../../utils'
+import { getDescription, jsToMysqlDate, replace_nth } from '../..'
 
 export const ZoutonsConfig = {
   name: 'Zoutons',
