@@ -1,5 +1,13 @@
 import { toast } from 'react-toastify'
 import { config } from './config'
+import {
+  CalendarIcon,
+  ChartPieIcon,
+  DocumentDuplicateIcon,
+  FolderIcon,
+  HomeIcon,
+  UsersIcon,
+} from '@heroicons/react/24/outline'
 
 export function notify(message: string, type: 'error' | 'warning' | 'info' | 'success') {
   if (type === 'error') {
@@ -157,8 +165,14 @@ function getParsedQuery(params: any) {
     .join('&')
 }
 
-function openTabInBackground(url: string) {
-  chrome.tabs.create({ url: url, active: false })
+export function openTabInBackground(urls: string[]) {
+  urls.map((url) => {
+    let newUrl
+    if (url.includes('?')) {
+      newUrl = url + '?auto_scrape=1'
+    } else newUrl = url + '&auto_scrape=1'
+    chrome.tabs.create({ url: newUrl, active: false })
+  })
 }
 
 export const replace_nth = function (s: string, f: string, r: string, n: string) {
@@ -171,3 +185,21 @@ export function jsToMysqlDate(d: Date) {
     d.getMonth() + 1
   }-${d.getDate()} ${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}`
 }
+
+export const navigation = [
+  { name: 'Dashboard', href: '#', icon: HomeIcon, current: true },
+  { name: 'Team', href: '#', icon: UsersIcon, current: false },
+  { name: 'Projects', href: '#', icon: FolderIcon, current: false },
+  { name: 'Calendar', href: '#', icon: CalendarIcon, current: false },
+  { name: 'Documents', href: '#', icon: DocumentDuplicateIcon, current: false },
+  { name: 'Reports', href: '#', icon: ChartPieIcon, current: false },
+]
+export const teams = [
+  { id: 1, name: 'Heroicons', href: '#', initial: 'H', current: false },
+  { id: 2, name: 'Tailwind Labs', href: '#', initial: 'T', current: false },
+  { id: 3, name: 'Workcation', href: '#', initial: 'W', current: false },
+]
+export const userNavigation = [
+  { name: 'Your profile', href: '#' },
+  { name: 'Sign out', href: '#' },
+]
