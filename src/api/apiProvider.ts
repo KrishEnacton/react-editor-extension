@@ -1,6 +1,8 @@
 function getEditorToken() {
-  chrome.storage.local.get('editor_token').then((res) => {
-    return res.editor_token
+  return new Promise((resolve) => {
+    chrome.storage.local.get('editor_token').then((res) => {
+      resolve(res.editor_token)
+    })
   })
 }
 export const api = {
@@ -22,10 +24,11 @@ export const api = {
     })
   },
   post: function (url: string, body: any) {
-    return new Promise((resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
+      console.log(url, `Bearer ${await getEditorToken()}`)
       fetch(url, {
         headers: {
-          Authentication: `Bearer ${getEditorToken()}`,
+          Authentication: `Bearer ${await getEditorToken()}`,
         },
         method: 'POST',
         body,
@@ -33,7 +36,10 @@ export const api = {
         .then((res) => {
           return res.json()
         })
-        .then((data: any) => resolve(data))
+        .then((data: any) => {
+          console.log(data, 'data')
+          resolve(data)
+        })
         .catch((err) => reject(err))
     })
   },

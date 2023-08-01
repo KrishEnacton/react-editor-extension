@@ -33,7 +33,6 @@ export async function startScrapping(merchantConfig: any) {
   let bulkUploadBody: CouponType[] = []
 
   for (const coupon of FilteredCoupons) {
-    console.log(coupon)
     let updatedAffiliateLink: string = ''
     if (coupon.affiliate_link != '') {
       updatedAffiliateLink = remove_affiliate_params(coupon.affiliate_link)

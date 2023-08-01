@@ -31,13 +31,9 @@ export function useAPIFunctions() {
 
   function bulkCouponsUpload(body: CouponType[]) {
     return new Promise((resolve) => {
-      api
-        .post(config.local_url + config.bulkUploadPoint, {
-          body,
-        })
-        .then((res: any) => {
-          resolve(res)
-        })
+      api.post(config.local_url + config.bulkUploadPoint, body).then((res: any) => {
+        resolve(res)
+      })
     })
   }
   return {
