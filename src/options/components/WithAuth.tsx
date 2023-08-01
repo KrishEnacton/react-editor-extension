@@ -1,15 +1,19 @@
 import { useEffect, useState } from 'react'
-import { Login } from '../sections/login'
+import Login from '../sections/login'
+import { getUserInfo } from '../../api/apiFunctions'
 
 const withAuth = (Component: () => JSX.Element) => {
   function HOCComponent() {
-    const [loading, setLoading] = useState(true)
+    const [loading, setLoading] = useState(false)
     const [isValidate, setIsValidate] = useState(false)
     useEffect(() => {
-      setTimeout(() => {
-        setIsValidate(false)
-        setLoading(false)
-      }, 3000)
+      setLoading(true)
+      getUserInfo().then((res) => {
+        if (res && Object.values(res).length > 0) {
+          setIsValidate(true)
+        }
+      })
+      setLoading(false)
       return () => {}
     }, [])
 

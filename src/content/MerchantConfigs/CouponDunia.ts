@@ -14,7 +14,6 @@ export const CouponDuniaConfig = {
       item.raw_categories = item.raw_categories?.split(',')
       item.exclusive = item.exclusive ? true : false
       item.verified_at = item.verified_at?.replace('Verified ', '')
-      // console.log({ end_date: item.end_date });
       item.end_date = item.end_date
         ? Date.parse(item.end_date)
           ? new Date(item.end_date)

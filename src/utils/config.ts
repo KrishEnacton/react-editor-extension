@@ -1,8 +1,8 @@
-import { CouponDuniaConfig } from "../content/MerchantConfigs/CouponDunia";
-import { GrabonConfig } from "../content/MerchantConfigs/Grabon";
-import { ZifupConfig } from "../content/MerchantConfigs/Zifup";
-import { ZingoyConfig } from "../content/MerchantConfigs/Zingoy";
-import { ZoutonsConfig } from "../content/MerchantConfigs/Zoutons";
+import { CouponDuniaConfig } from '../content/MerchantConfigs/CouponDunia'
+import { GrabonConfig } from '../content/MerchantConfigs/Grabon'
+import { ZifupConfig } from '../content/MerchantConfigs/Zifup'
+import { ZingoyConfig } from '../content/MerchantConfigs/Zingoy'
+import { ZoutonsConfig } from '../content/MerchantConfigs/Zoutons'
 
 export const config = {
   editor_auth_token: 'ce1e9209-c8ae-4f75-b96c-c4c116dfa90e',
@@ -16,13 +16,7 @@ export const config = {
   admin_panel_dashboard: 'https://editor.coupomated.com/',
   version: '1.1.4',
   release_date: '21st July, 2023',
-  merchantConfigs : [
-    CouponDuniaConfig,
-    ZifupConfig,
-    ZoutonsConfig,
-    GrabonConfig,
-    ZingoyConfig
-  ],
+  merchantConfigs: [CouponDuniaConfig, ZifupConfig, ZoutonsConfig, GrabonConfig, ZingoyConfig],
   affiliate_params: [
     'utm_source',
     'utm_medium',
@@ -72,5 +66,9 @@ export const config = {
     'node',
     'language',
   ],
+  local_url: 'https://eenfeed.enactweb.com',
+  getUserInfoEndpoint: '/api/editor/my/info',
+  getMerchantsEndpoint: '/api/editor/my/merchants',
+  logOutEndPoint: '/api/editor/my/logout',
   coupon_rejection_keywords: ['CD'],
 }

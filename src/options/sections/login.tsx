@@ -1,29 +1,30 @@
 import { useEffect, useState } from 'react'
 import { notify } from '../../utils'
 import { useNavigate } from 'react-router-dom'
+import { useStorage } from '../../hooks/useStorage'
 
-export const Login = () => {
+const Login = () => {
   const [token, setToken] = useState<string>('')
+  const { setStorage, getStorage } = useStorage()
   const navigate = useNavigate()
   function saveToken(token: string) {
-    chrome.storage.local.set(
-      {
-        editor_token: token?.trim(),
-      },
-      () => {
-        notify('Token saved!', 'success')
-        navigate('/dashboard')
-      },
-    )
-  }
-  useEffect(() => {
-    chrome.storage.local.get(['editor_token'], (result) => {
-      if (result.editor_token) {
+    setStorage('editor_token', token).then((res) => {
+      if (res) {
+        notify('Editor Token saved!', 'success')
         navigate('/dashboard')
       }
     })
+  }
+
+  useEffect(() => {
+    getStorage('editor_token').then((res) => {
+      if (res.editor_token) {
+        navigate('/dashboard')
+      }
+    })
+    return () => {}
   }, [])
-  
+
   return (
     <div className="mx-auto w-1/4 p-12 m-4 rounded-lg bg-[#fafafc] border border-[#e9e9f2]">
       <div className="text-center text-xl font-semibold">Saved Tokens</div>
@@ -49,3 +50,5 @@ export const Login = () => {
     </div>
   )
 }
+
+export default Login
