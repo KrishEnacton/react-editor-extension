@@ -33,10 +33,6 @@ export async function startScrapping(merchantConfig: any) {
   let bulkUploadBody: CouponType[] = []
 
   for (const coupon of FilteredCoupons) {
-    let updatedAffiliateLink: string = ''
-    if (coupon.affiliate_link != '') {
-      updatedAffiliateLink = remove_affiliate_params(coupon.affiliate_link)
-    }
     bulkUploadBody.push({
       coupon_code: coupon.coupon_code != '' ? coupon.coupon_code : '',
       source: 'comp',
@@ -44,7 +40,7 @@ export async function startScrapping(merchantConfig: any) {
       raw_description: coupon.description != '' ? coupon.description : '',
       raw_title: coupon.title != '' ? coupon.title : '',
       offer_type: !coupon.coupon_code ? 'discount' : 'counpon',
-      affiliate_link: updatedAffiliateLink != '' ? updatedAffiliateLink : '',
+      affiliate_link: coupon.affiliate_link != '' ? coupon.affiliate_link : '',
       end_date: coupon.end_date != '' ? coupon.end_date : '',
       source_coupon_id: coupon.source_coupon_id != '' ? coupon.source_coupon_id : '',
     })

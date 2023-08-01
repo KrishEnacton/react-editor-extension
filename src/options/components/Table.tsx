@@ -1,4 +1,5 @@
 import { Table } from '@tanstack/react-table'
+import { Filter } from '../sections/Dashboard/config'
 
 export const ReactTable: React.FC<{ table: Table<unknown>; flexRender: any }> = ({
   table,
@@ -11,9 +12,27 @@ export const ReactTable: React.FC<{ table: Table<unknown>; flexRender: any }> = 
           <tr key={headerGroup.id} className="border">
             {headerGroup.headers.map((header: any) => (
               <th key={header.id} className="border p-2">
-                {header.isPlaceholder
-                  ? null
-                  : flexRender(header.column.columnDef.header, header.getContext())}
+                {header.isPlaceholder ? null : (
+                  <>
+                    <div
+                      {...{
+                        className: header.column.getCanSort() ? 'cursor-pointer select-none' : '',
+                        onClick: header.column.getToggleSortingHandler(),
+                      }}
+                    >
+                      {flexRender(header.column.columnDef.header, header.getContext())}
+                      {{
+                        asc: ' 🔼',
+                        desc: ' 🔽',
+                      }[header.column.getIsSorted() as string] ?? null}
+                    </div>
+                    {header.column.getCanFilter() ? (
+                      <div>
+                        <Filter column={header.column} table={table} />
+                      </div>
+                    ) : null}
+                  </>
+                )}
               </th>
             ))}
           </tr>
