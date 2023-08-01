@@ -16,7 +16,6 @@ export const api = {
           return res.json()
         })
         .then((data: any) => {
-          console.log(data, 'data')
           resolve(data)
         })
         .catch((err) => reject(err))

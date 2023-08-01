@@ -6,7 +6,7 @@ import Login from './sections/login'
 
 function App() {
   return (
-    <main className="flex items-center justify-center h-screen">
+    <main>
       <HashRouter>
         <Routes>
           <Route path="/" element={<Login />} />

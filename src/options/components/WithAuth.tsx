@@ -1,19 +1,20 @@
 import { useEffect, useState } from 'react'
 import Login from '../sections/login'
-import { getUserInfo } from '../../api/apiFunctions'
+import { useAPIFunctions } from '../../hooks/useFunctions'
 
 const withAuth = (Component: () => JSX.Element) => {
   function HOCComponent() {
     const [loading, setLoading] = useState(false)
     const [isValidate, setIsValidate] = useState(false)
+    const { getUserInfo } = useAPIFunctions()
     useEffect(() => {
       setLoading(true)
       getUserInfo().then((res) => {
         if (res && Object.values(res).length > 0) {
           setIsValidate(true)
+          setLoading(false)
         }
       })
-      setLoading(false)
       return () => {}
     }, [])
 
