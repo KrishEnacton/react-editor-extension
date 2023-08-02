@@ -15,8 +15,17 @@ export const useStorage = () => {
     })
   }
 
+  function clearStorage() {
+    return new Promise((resolve) => {
+      chrome.storage.local.clear().then(() => {
+        resolve(true)
+      })
+    })
+  }
+
   return {
     setStorage,
     getStorage,
+    clearStorage,
   }
 }

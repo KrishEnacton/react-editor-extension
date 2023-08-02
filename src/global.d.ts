@@ -31,5 +31,5 @@ export interface CouponType {
   offer_type?: string
   discount?: string
   affiliate_link?: string
-  end_date?: string
+  end_date?: number
 }

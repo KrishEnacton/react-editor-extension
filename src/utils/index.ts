@@ -203,3 +203,57 @@ export const userNavigation = [
   { name: 'Your profile', href: '#' },
   { name: 'Sign out', href: '#' },
 ]
+
+export function parseDateToTimestamp(dateStr: string) {
+  // Helper function to convert month name to month number
+  const getMonthNumber = (monthName: any) => {
+    const months: any = {
+      Jan: 0,
+      Feb: 1,
+      Mar: 2,
+      Apr: 3,
+      May: 4,
+      Jun: 5,
+      Jul: 6,
+      Aug: 7,
+      Sep: 8,
+      Oct: 9,
+      Nov: 10,
+      Dec: 11,
+    }
+    return months[monthName]
+  }
+
+  // Function to parse the date string and convert it to timestamp
+  const parseDate = (dateStr: string) => {
+    const dateTimeRegex = /^(\d{4})-(\d{1,2})-(\d{1,2}) (\d{1,2}):(\d{1,2}):(\d{1,2})$/
+    const shortDateRegex = /^(\d{1,2}) ([A-Za-z]{3}), (\d{2})$/
+    const relativeDateRegex = /^\+(\d+) days$/
+
+    let match: any
+
+    if (dateStr.match(dateTimeRegex)) {
+      match = dateStr.match(dateTimeRegex)
+      const [, year, month, day, hour, minute, second] = match
+      return new Date(year, month - 1, day, hour, minute, second).getTime()
+    }
+
+    if (dateStr.match(shortDateRegex)) {
+      match = dateStr.match(shortDateRegex)
+      const [, day, monthName, year] = match
+      return new Date(year, getMonthNumber(monthName), day).getTime()
+    }
+
+    if (dateStr.match(relativeDateRegex)) {
+      match = dateStr.match(relativeDateRegex)
+      const [, daysToAdd] = match
+      const currentDate = new Date()
+      currentDate.setDate(currentDate.getDate() + parseInt(daysToAdd))
+      return currentDate.getTime()
+    }
+
+    return NaN // Invalid date format
+  }
+
+  return parseDate(dateStr)
+}

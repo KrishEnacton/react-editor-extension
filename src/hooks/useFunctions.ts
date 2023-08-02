@@ -4,6 +4,7 @@ import { api } from '../api/apiProvider'
 import { CouponType } from '../global'
 
 export function useAPIFunctions() {
+  const { clearStorage } = useStorage()
   function getUserInfo() {
     return new Promise((resolve) => {
       api.get(config.local_url + config.getUserInfoEndpoint).then((res: any) => {
@@ -24,8 +25,12 @@ export function useAPIFunctions() {
   }
 
   function logOut() {
-    api.get(config.local_url + config.logOutEndPoint).then((res: any) => {
-      console.log({ res })
+    return new Promise((resolve) => {
+      api.get(config.local_url + config.logOutEndPoint).then((res: any) => {
+        clearStorage().then((res) => {
+          if (res) resolve(true)
+        })
+      })
     })
   }
 

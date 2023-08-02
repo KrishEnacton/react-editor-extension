@@ -15,7 +15,7 @@ import {
   getSortedRowModel,
   useReactTable,
 } from '@tanstack/react-table'
-import { RankingInfo, rankItem, compareItems } from '@tanstack/match-sorter-utils'
+import { rankItem } from '@tanstack/match-sorter-utils'
 import { ReactTable } from '../../components/Table'
 import { useStorage } from '../../../hooks/useStorage'
 import DashboardLayout from '../../layouts/Dashboard'

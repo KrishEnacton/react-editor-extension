@@ -4,9 +4,11 @@ import { Dialog, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, BellIcon, Cog6ToothIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { ChevronDownIcon, MagnifyingGlassIcon } from '@heroicons/react/20/solid'
 import { navigation, teams, userNavigation } from '../../utils'
+import { useAPIFunctions } from '../../hooks/useFunctions'
 
 const DashboardLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false)
+  const { logOut } = useAPIFunctions()
 
   function classNames(...classes: string[]) {
     return classes.filter(Boolean).join(' ')
@@ -303,6 +305,11 @@ const DashboardLayout: React.FC<{ children: React.ReactNode }> = ({ children }) 
                               active ? 'bg-gray-50' : '',
                               'block px-3 py-1 text-sm leading-6 text-gray-900',
                             )}
+                            onClick={() => {
+                              if (item.name == 'Sign out') {
+                                logOut()
+                              }
+                            }}
                           >
                             {item.name}
                           </a>

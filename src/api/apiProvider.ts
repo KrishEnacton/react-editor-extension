@@ -25,13 +25,12 @@ export const api = {
   },
   post: function (url: string, body: any) {
     return new Promise(async (resolve, reject) => {
-      console.log(url, `Bearer ${await getEditorToken()}`)
       fetch(url, {
         headers: {
           Authentication: `Bearer ${await getEditorToken()}`,
         },
         method: 'POST',
-        body,
+        body: JSON.stringify(body),
       })
         .then((res) => {
           return res.json()

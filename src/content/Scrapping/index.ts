@@ -2,7 +2,11 @@ import { CouponType } from '../../global'
 import { useAPIFunctions } from '../../hooks/useFunctions'
 import { config } from '../../utils/config'
 import { scrapper } from '../../content/scrapper'
-import { excludeCompetitorMerchant, remove_affiliate_params } from '../../utils'
+import {
+  excludeCompetitorMerchant,
+  parseDateToTimestamp,
+  remove_affiliate_params,
+} from '../../utils'
 
 export async function startScrapping(merchantConfig: any) {
   const { bulkCouponsUpload } = useAPIFunctions()
@@ -33,6 +37,7 @@ export async function startScrapping(merchantConfig: any) {
   let bulkUploadBody: CouponType[] = []
 
   for (const coupon of FilteredCoupons) {
+    console.log(coupon)
     bulkUploadBody.push({
       coupon_code: coupon.coupon_code != '' ? coupon.coupon_code : '',
       source: 'comp',
@@ -41,7 +46,7 @@ export async function startScrapping(merchantConfig: any) {
       raw_title: coupon.title != '' ? coupon.title : '',
       offer_type: !coupon.coupon_code ? 'discount' : 'counpon',
       affiliate_link: coupon.affiliate_link != '' ? coupon.affiliate_link : '',
-      end_date: coupon.end_date != '' ? coupon.end_date : '',
+      end_date: coupon.end_date != '' ? parseDateToTimestamp(coupon.end_date) : 0,
       source_coupon_id: coupon.source_coupon_id != '' ? coupon.source_coupon_id : '',
     })
   }
