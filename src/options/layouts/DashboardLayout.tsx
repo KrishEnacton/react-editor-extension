@@ -5,10 +5,12 @@ import { Bars3Icon, BellIcon, Cog6ToothIcon, XMarkIcon } from '@heroicons/react/
 import { ChevronDownIcon, MagnifyingGlassIcon } from '@heroicons/react/20/solid'
 import { navigation, teams, userNavigation } from '../../utils'
 import { useAPIFunctions } from '../../hooks/useFunctions'
+import { useNavigate } from 'react-router-dom'
 
 const DashboardLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const { logOut } = useAPIFunctions()
+  const navigate = useNavigate()
 
   function classNames(...classes: string[]) {
     return classes.filter(Boolean).join(' ')
@@ -249,7 +251,7 @@ const DashboardLayout: React.FC<{ children: React.ReactNode }> = ({ children }) 
               />
               <input
                 id="search-field"
-                className="block h-full w-full border-0 py-0 pl-8 pr-0 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm focus:outline-none focus:ring-0"
+                className="block h-full w-full border-0 py-0 pl-8 pr-0 text-gray-900 placeholder:text-gray-400 sm:text-sm focus:outline-none focus:ring-0"
                 placeholder="Search..."
                 type="search"
                 name="search"
@@ -308,6 +310,7 @@ const DashboardLayout: React.FC<{ children: React.ReactNode }> = ({ children }) 
                             onClick={() => {
                               if (item.name == 'Sign out') {
                                 logOut()
+                                navigate('/')
                               }
                             }}
                           >

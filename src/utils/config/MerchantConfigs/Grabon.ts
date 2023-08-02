@@ -54,7 +54,7 @@ export const GrabonConfig = {
             ? getDescription(GrabonConfig?.description?.selector)
             : ''
         } catch (error) {
-          console.log(error, 'error hai')
+          console.log(error, 'error')
         }
       }
 

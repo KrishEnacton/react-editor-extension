@@ -36,10 +36,33 @@ export const api = {
           return res.json()
         })
         .then((data: any) => {
-          console.log(data, 'data')
           resolve(data)
         })
         .catch((err) => reject(err))
+    })
+  },
+  validate: function (url: string, token: string) {
+    return new Promise((resolve, reject) => {
+      fetch(url, {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok')
+          }
+          return response.json()
+        })
+        .then((data) => {
+          resolve(data.data)
+          // Handle the data as needed
+        })
+        .catch((error) => {
+          console.error('Error:', error)
+          reject(error)
+        })
     })
   },
 }

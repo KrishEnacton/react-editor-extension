@@ -7,9 +7,14 @@ export function useAPIFunctions() {
   const { clearStorage } = useStorage()
   function getUserInfo() {
     return new Promise((resolve) => {
-      api.get(config.local_url + config.getUserInfoEndpoint).then((res: any) => {
-        resolve(res.data)
-      })
+      api
+        .get(config.local_url + config.getUserInfoEndpoint)
+        .then((res: any) => {
+          resolve(res.data)
+        })
+        .catch((kk) => {
+          console.log({ kk })
+        })
     })
   }
 
@@ -17,7 +22,6 @@ export function useAPIFunctions() {
     const { setStorage } = useStorage()
     return new Promise((resolve) => {
       api.get(config.local_url + config.getMerchantsEndpoint).then((res: any) => {
-        console.log({ res })
         setStorage('merchant_lists', res.data)
         resolve(res)
       })

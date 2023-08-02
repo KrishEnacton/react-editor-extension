@@ -1,5 +1,3 @@
-import withAuth from '../../components/WithAuth'
-import MainLayout from '../../layouts/Main'
 import { useEffect, useState } from 'react'
 import {
   ColumnFiltersState,
@@ -18,8 +16,9 @@ import {
 import { rankItem } from '@tanstack/match-sorter-utils'
 import { ReactTable } from '../../components/Table'
 import { useStorage } from '../../../hooks/useStorage'
-import DashboardLayout from '../../layouts/Dashboard'
+import DashboardLayout from '../../layouts/DashboardLayout'
 import { MerchantColumns } from './config'
+import AppLayout from '../../layouts/AppLayout'
 
 const Dashboard = () => {
   const [formData, setFormData] = useState<any>([])
@@ -71,12 +70,12 @@ const Dashboard = () => {
   }, [])
 
   return (
-    <MainLayout>
+    <AppLayout>
       <DashboardLayout>
         <ReactTable table={table} flexRender={flexRender} />
       </DashboardLayout>
-    </MainLayout>
+    </AppLayout>
   )
 }
 
-export default withAuth(Dashboard)
+export default Dashboard

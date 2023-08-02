@@ -9,7 +9,7 @@ export const useStorage = () => {
   function getStorage(name: string): Promise<any> {
     return new Promise((resolve, reject) => {
       chrome.storage.local.get(name).then((res) => {
-        if (Object.values(res).length == 0) reject('no data')
+        if (Object.values(res).length == 0) reject(false)
         resolve(res)
       })
     })

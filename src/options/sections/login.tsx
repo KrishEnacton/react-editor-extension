@@ -3,6 +3,8 @@ import { notify } from '../../utils'
 import { useNavigate } from 'react-router-dom'
 import { useStorage } from '../../hooks/useStorage'
 import { useAPIFunctions } from '../../hooks/useFunctions'
+import { api } from '../../api/apiProvider'
+import { config } from '../../utils/config'
 
 const Login = () => {
   const [token, setToken] = useState<string>('')
@@ -10,18 +12,22 @@ const Login = () => {
   const navigate = useNavigate()
   const { getMerchantList } = useAPIFunctions()
   function saveToken(token: string) {
-    setStorage('editor_token', token).then((res) => {
-      if (res) {
-        notify('Editor Token saved!', 'success')
-        navigate('/dashboard')
+    api.validate(config.local_url + config.getUserInfoEndpoint, token).then((res: any) => {
+      if (res.id) {
+        setStorage('editor_info', res).then((res) => {
+          if (res) {
+            notify('Editor Token saved!', 'success')
+            navigate('/dashboard')
+          }
+        })
+        getMerchantList()
       }
     })
-    getMerchantList()
   }
 
   useEffect(() => {
-    getStorage('editor_token').then((res) => {
-      if (res.editor_token) {
+    getStorage('editor_info').then((res) => {
+      if (res?.editor_info?.token) {
         navigate('/dashboard')
       }
     })
