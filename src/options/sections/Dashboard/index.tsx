@@ -69,6 +69,8 @@ const Dashboard = () => {
     return () => {}
   }, [])
 
+  useEffect(() => {}, [formData])
+
   return (
     <AppLayout>
       <DashboardLayout>

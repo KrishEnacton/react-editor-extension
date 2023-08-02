@@ -301,11 +301,10 @@ const DashboardLayout: React.FC<{ children: React.ReactNode }> = ({ children }) 
                     {userNavigation.map((item) => (
                       <Menu.Item key={item.name}>
                         {({ active }) => (
-                          <a
-                            href={item.href}
+                          <span
                             className={classNames(
                               active ? 'bg-gray-50' : '',
-                              'block px-3 py-1 text-sm leading-6 text-gray-900',
+                              'block px-3 py-1 text-sm leading-6 text-gray-900 cursor-pointer',
                             )}
                             onClick={() => {
                               if (item.name == 'Sign out') {
@@ -318,7 +317,7 @@ const DashboardLayout: React.FC<{ children: React.ReactNode }> = ({ children }) 
                             }}
                           >
                             {item.name}
-                          </a>
+                          </span>
                         )}
                       </Menu.Item>
                     ))}

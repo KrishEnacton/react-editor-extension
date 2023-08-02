@@ -15,6 +15,9 @@ export const api = {
         method: 'GET',
       })
         .then((res) => {
+          if (!res.ok) {
+            throw new Error('Network response was not ok')
+          }
           return res.json()
         })
         .then((data: any) => {
@@ -33,6 +36,9 @@ export const api = {
         body: JSON.stringify(body),
       })
         .then((res) => {
+          if (!res.ok) {
+            throw new Error('Network response was not ok')
+          }
           return res.json()
         })
         .then((data: any) => {
