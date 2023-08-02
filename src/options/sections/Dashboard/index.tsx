@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useLayoutEffect, useState } from 'react'
 import {
   ColumnFiltersState,
   FilterFn,
@@ -62,7 +62,7 @@ const Dashboard = () => {
     debugColumns: false,
   })
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     getStorage('merchant_lists').then((res: any) => {
       setFormData(res.merchant_lists)
     })

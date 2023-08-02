@@ -309,8 +309,11 @@ const DashboardLayout: React.FC<{ children: React.ReactNode }> = ({ children }) 
                             )}
                             onClick={() => {
                               if (item.name == 'Sign out') {
-                                logOut()
-                                navigate('/')
+                                logOut().then((res) => {
+                                  if (res) {
+                                    navigate('/')
+                                  }
+                                })
                               }
                             }}
                           >

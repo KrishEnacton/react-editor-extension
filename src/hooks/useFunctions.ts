@@ -31,9 +31,11 @@ export function useAPIFunctions() {
   function logOut() {
     return new Promise((resolve) => {
       api.get(config.local_url + config.logOutEndPoint).then((res: any) => {
-        clearStorage().then((res) => {
-          if (res) resolve(true)
-        })
+        if (res.data == null) {
+          clearStorage().then((res) => {
+            if (res) resolve(true)
+          })
+        }
       })
     })
   }
