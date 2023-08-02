@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'
-import { notify } from '../../utils'
+import { notify } from '../../../utils'
 import { useNavigate } from 'react-router-dom'
-import { useStorage } from '../../hooks/useStorage'
-import { useAPIFunctions } from '../../hooks/useFunctions'
-import { api } from '../../api/apiProvider'
-import { config } from '../../utils/config'
+import { useStorage } from '../../../hooks/useStorage'
+import { useAPIFunctions } from '../../../hooks/useFunctions'
+import { api } from '../../../api/apiProvider'
+import { config } from '../../../utils/config'
 
 const Login = () => {
   const [token, setToken] = useState<string>('')

@@ -1,6 +1,6 @@
 import React, { useEffect, useLayoutEffect, useState } from 'react'
 import FullScreenLoader from '../core/Loaders/FullScreenLoader'
-import Login from '../sections/login'
+import Login from '../sections/Login'
 import { useStorage } from '../../hooks/useStorage'
 
 const AppLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {

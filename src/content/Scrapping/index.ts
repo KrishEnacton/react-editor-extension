@@ -2,11 +2,7 @@ import { CouponType } from '../../global'
 import { useAPIFunctions } from '../../hooks/useFunctions'
 import { config } from '../../utils/config'
 import { scrapper } from '../../content/scrapper'
-import {
-  excludeCompetitorMerchant,
-  parseDateToTimestamp,
-  remove_affiliate_params,
-} from '../../utils'
+import { excludeCompetitorMerchant, parseDateToTimestamp } from '../../utils'
 
 export async function startScrapping(merchantConfig: any) {
   const { bulkCouponsUpload } = useAPIFunctions()

@@ -22,7 +22,6 @@ import AppLayout from '../../layouts/AppLayout'
 
 const Dashboard = () => {
   const [formData, setFormData] = useState<any>([])
-  const [sorting, setSorting] = useState<SortingState>([])
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
   const { getStorage } = useStorage()
 
@@ -64,6 +63,7 @@ const Dashboard = () => {
 
   useLayoutEffect(() => {
     getStorage('merchant_lists').then((res: any) => {
+      console.log(res.merchant_lists, 'lists')
       setFormData(res.merchant_lists)
     })
     return () => {}
