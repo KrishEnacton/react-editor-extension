@@ -42,6 +42,7 @@ const AddCouponSlider: React.FC<{}> = ({}) => {
   }
 
   function toggleSliderHandler() {
+    document.querySelector('body')?.setAttribute('style', 'width: 100%')
     window.postMessage({ from: 'ADD_COUPON_SLIDER', payload: { toggle: toggleSlider } }, '*')
   }
 
@@ -58,16 +59,11 @@ const AddCouponSlider: React.FC<{}> = ({}) => {
     })
   }, [])
 
-  useEffect(() => {
-    document.querySelector('body')?.setAttribute('style', 'width: 100%')
-    return () => {}
-  }, [toggleSlider])
-
   return (
     <div
       className={`${
         toggleSlider ? 'slide-in' : 'slide-out'
-      } right-[10px] rounded-md border top-[50px] border-slate-400 fixed w-[20%] bg-[#fefefe]`}
+      } rounded-md border top-[50px] border-slate-400 fixed w-[20%] bg-[#fefefe]`}
     >
       <div className="text-lg my-2 font-semibold text-center flex items-center">
         <div className="text-center mx-auto">Create Coupon</div>
@@ -83,7 +79,6 @@ const AddCouponSlider: React.FC<{}> = ({}) => {
       </div>
       <form className="flex flex-col p-4" onSubmit={onSubmit}>
         <InputField
-          className="test"
           type={'text'}
           name={'Merchant Name'}
           id={'merchant_name'}
@@ -92,7 +87,6 @@ const AddCouponSlider: React.FC<{}> = ({}) => {
           placeholder={'Enter Merchant Name'}
         />
         <InputField
-          className="test"
           type={'text'}
           name={'Coupon Title'}
           error={errors['raw_title']}
@@ -101,7 +95,6 @@ const AddCouponSlider: React.FC<{}> = ({}) => {
           placeholder={'Enter Coupon Title'}
         />
         <InputField
-          className="test"
           name={'Coupon Description'}
           type={'textarea'}
           error={errors['raw_description']}
@@ -110,7 +103,6 @@ const AddCouponSlider: React.FC<{}> = ({}) => {
           placeholder={'Enter Coupon Description'}
         />
         <InputField
-          className="test"
           type={'text'}
           name={'Coupon Code'}
           onChange={(e) => setCoupon({ ...Coupon, coupon_code: e.target.value })}
@@ -118,7 +110,6 @@ const AddCouponSlider: React.FC<{}> = ({}) => {
           placeholder={'Enter Coupon Code'}
         />
         <InputField
-          className="test"
           type={'text'}
           name={'Link'}
           error={errors['link']}
@@ -127,7 +118,6 @@ const AddCouponSlider: React.FC<{}> = ({}) => {
           placeholder={'Enter Link'}
         />
         <InputField
-          className="test"
           name={'Expiry Date'}
           type={'date'}
           onChange={(e) => setCoupon({ ...Coupon, end_date: e.target.value })}

@@ -2,16 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
-:host {
-  font-size: initial;
-}
-
 .slide-in {
   right: -500px;
   animation: slide-in 0.3s ease forwards;
 }
 .slide-out {
-  right: 200px;
+  right: 10px;
   animation: slide-out 0.3s ease forwards;
 }
 
@@ -20,12 +16,12 @@
     right: -500px;
   }
   to {
-    right: 0px;
+    right: 10px;
   }
 }
 @keyframes slide-out {
   from {
-    right: 0px;
+    right: 10px;
   }
   to {
     right: -500px;

@@ -1,5 +1,5 @@
 import React, { useEffect, useLayoutEffect, useState } from 'react'
-import FullScreenLoader from '../core/Loaders/FullScreenLoader'
+import FullScreenLoader from '../generic/Loaders/FullScreenLoader'
 import Login from '../sections/Login'
 import { useStorage } from '../../hooks/useStorage'
 

@@ -6,15 +6,36 @@ import { ChevronDownIcon, MagnifyingGlassIcon } from '@heroicons/react/20/solid'
 import { navigation, teams, userNavigation } from '../../utils'
 import { useAPIFunctions } from '../../hooks/useFunctions'
 import { useNavigate } from 'react-router-dom'
+import { useStorage } from '../../hooks/useStorage'
 
 const DashboardLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false)
+  const [editor, setEditor] = useState({
+    name: '',
+    id: 0,
+    email: '',
+    token: '',
+  })
   const { logOut } = useAPIFunctions()
   const navigate = useNavigate()
+  const { getStorage } = useStorage()
 
   function classNames(...classes: string[]) {
     return classes.filter(Boolean).join(' ')
   }
+
+  useEffect(() => {
+    getStorage('editor_info').then((res) => {
+      const editor = res.editor_info
+      setEditor({
+        name: editor.name,
+        id: editor.id,
+        email: editor.email,
+        token: editor.token,
+      })
+    })
+  }, [])
+
   return (
     <div>
       <Transition.Root show={sidebarOpen} as={Fragment}>
@@ -273,17 +294,12 @@ const DashboardLayout: React.FC<{ children: React.ReactNode }> = ({ children }) 
               <Menu as="div" className="relative">
                 <Menu.Button className="-m-1.5 flex items-center p-1.5">
                   <span className="sr-only">Open user menu</span>
-                  <img
-                    className="h-8 w-8 rounded-full bg-gray-50"
-                    src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                    alt=""
-                  />
                   <span className="hidden lg:flex lg:items-center">
                     <span
                       className="ml-4 text-sm font-semibold leading-6 text-gray-900"
                       aria-hidden="true"
                     >
-                      Tom Cook
+                      {editor.name}
                     </span>
                     <ChevronDownIcon className="ml-2 h-5 w-5 text-gray-400" aria-hidden="true" />
                   </span>
