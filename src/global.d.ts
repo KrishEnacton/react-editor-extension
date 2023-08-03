@@ -22,6 +22,7 @@ export interface MerchantType {
 }
 export interface CouponType {
   coupon_code?: string
+  merchant_name?: string
   source?: string
   source_id?: string
   source_coupon_id?: string

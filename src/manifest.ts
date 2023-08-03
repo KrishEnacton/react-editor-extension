@@ -23,7 +23,12 @@ export default defineManifest({
   content_scripts: [
     {
       matches: ['<all_urls>'],
-      js: ['src/content/index.tsx'],
+      js: [
+        'src/content/ScrapperModal/index.tsx',
+        'src/content/AddCouponSlider/index.tsx',
+        'src/content/AddCouponButton/index.tsx',
+        'src/content/index.tsx',
+      ],
     },
   ],
   web_accessible_resources: [
@@ -34,6 +39,7 @@ export default defineManifest({
         'img/icon40.png',
         'img/icon48.png',
         'src/styles/output.css',
+        'node_modules/react-datepicker/dist/react-datepicker.css',
       ],
       matches: ['<all_urls>'],
       use_dynamic_url: true,

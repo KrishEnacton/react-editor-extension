@@ -24,19 +24,19 @@ export function notify(message: string, type: 'error' | 'warning' | 'info' | 'su
   }
 }
 
-export function RootElement() {
+export function RootElement(id: string, position: string, zIndex: string) {
   let rootElement = document.createElement('div')
-  rootElement.id = 'coupomated-injected-modal'
-  rootElement.style.position = 'fixed'
-  rootElement.style.zIndex = '99999999'
+  rootElement.id = id
+  rootElement.style.position = position
+  rootElement.style.zIndex = zIndex
   return rootElement
 }
 
-export function injectStyles() {
+export function injectStyles(href: string) {
   let linkElement = document.createElement('link')
   linkElement.rel = 'stylesheet'
   linkElement.type = 'text/css'
-  linkElement.href = chrome.runtime.getURL('/src/styles/output.css')
+  linkElement.href = href
   return linkElement
 }
 

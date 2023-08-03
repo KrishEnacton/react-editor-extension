@@ -1,6 +1,6 @@
 import React from 'react'
 import { startScrapping } from '../../Scrapping'
-const Modal: React.FC<{ merchantConfig: any }> = ({ merchantConfig }) => {
+const ScrapperModal: React.FC<{ merchantConfig: any }> = ({ merchantConfig }) => {
   return (
     <div className="rounded-md m-4 p-6 text-center bg-[#FFF7EF] border top-[120px] right-[50px] border-gray-400 w-[300px] text-black fixed">
       <div className="text-lg font-bold">Editor Scrapper</div>
@@ -14,4 +14,4 @@ const Modal: React.FC<{ merchantConfig: any }> = ({ merchantConfig }) => {
   )
 }
 
-export default Modal
+export default ScrapperModal
