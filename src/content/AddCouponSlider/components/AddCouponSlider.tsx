@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import CrossIcon from '@heroicons/react/24/outline/XMarkIcon'
 import InputField from '../core/InputField'
 
@@ -17,6 +17,7 @@ const AddCouponSlider: React.FC<{}> = ({}) => {
     raw_description: '',
     link: '',
   })
+  const [toggleSlider, setToggleSlider] = useState(false)
 
   function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
@@ -39,11 +40,44 @@ const AddCouponSlider: React.FC<{}> = ({}) => {
     }
     console.log({ Coupon })
   }
+
+  function toggleSliderHandler() {
+    window.postMessage({ from: 'ADD_COUPON_SLIDER', payload: { toggle: toggleSlider } }, '*')
+  }
+
+  useEffect(() => {
+    window.addEventListener('message', (e: any) => {
+      if (e.data.from == 'ADD_COUPON_BUTTON') {
+        if (e.data.payload.toggle) {
+          document.querySelector('body')?.setAttribute('style', 'width: 70%')
+        } else {
+          document.querySelector('body')?.setAttribute('style', 'width: 100%')
+        }
+        setToggleSlider(e.data.payload.toggle)
+      }
+    })
+  }, [])
+
+  useEffect(() => {
+    document.querySelector('body')?.setAttribute('style', 'width: 100%')
+    return () => {}
+  }, [toggleSlider])
+
   return (
-    <div className="right-[10px] rounded-md border top-[50px] border-slate-400 fixed w-[30%] bg-[#fefefe]">
+    <div
+      className={`${
+        toggleSlider ? 'slide-in' : 'slide-out'
+      } right-[10px] rounded-md border top-[50px] border-slate-400 fixed w-[20%] bg-[#fefefe]`}
+    >
       <div className="text-lg my-2 font-semibold text-center flex items-center">
         <div className="text-center mx-auto">Create Coupon</div>
-        <button className="self-end rounded-md mx-4">
+        <button
+          className="self-end rounded-md mx-4"
+          onClick={() => {
+            setToggleSlider(!toggleSlider)
+            toggleSliderHandler()
+          }}
+        >
           <CrossIcon className="h-8 w-8" />
         </button>
       </div>

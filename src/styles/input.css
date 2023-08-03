@@ -3,5 +3,31 @@
 @tailwind utilities;
 
 :host {
-    font-size: initial;
- }
+  font-size: initial;
+}
+
+.slide-in {
+  right: -500px;
+  animation: slide-in 0.3s ease forwards;
+}
+.slide-out {
+  right: 200px;
+  animation: slide-out 0.3s ease forwards;
+}
+
+@keyframes slide-in {
+  from {
+    right: -500px;
+  }
+  to {
+    right: 0px;
+  }
+}
+@keyframes slide-out {
+  from {
+    right: 0px;
+  }
+  to {
+    right: -500px;
+  }
+}
