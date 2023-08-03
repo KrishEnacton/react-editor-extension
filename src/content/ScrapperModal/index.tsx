@@ -5,7 +5,11 @@ import ScrapperModal from './components/ScrapperModal'
 if (!new URL(window.location.href).searchParams.get('auto_scrape')) {
   chrome.runtime.sendMessage({ action: 'GET_CURRENT_MERCHANT' }, (response) => {
     if (!response) return
-    const root = RootElement('coupomated-injected-modal', 'fixed', '99999999')
+    const root = RootElement({
+      id: 'coupomated-injected-modal',
+      position: 'fixed',
+      zIndex: '99999999',
+    })
     document.body.prepend(root)
     const shadow = root.attachShadow({ mode: 'open' }) as ShadowRoot
     shadow.append(injectStyles(chrome.runtime.getURL('/src/styles/output.css')))

@@ -24,9 +24,22 @@ export function notify(message: string, type: 'error' | 'warning' | 'info' | 'su
   }
 }
 
-export function RootElement(id: string, position: string, zIndex: string) {
+export function RootElement({
+  id,
+  position,
+  zIndex,
+  display,
+}: {
+  id: string
+  position: string
+  zIndex: string
+  display?: string
+}) {
   let rootElement = document.createElement('div')
   rootElement.id = id
+  if (display) {
+    rootElement.style.display = display
+  }
   rootElement.style.position = position
   rootElement.style.zIndex = zIndex
   return rootElement
@@ -165,12 +178,18 @@ function getParsedQuery(params: any) {
     .join('&')
 }
 
-export function openTabInBackground(urls: string[]) {
-  urls.map((url) => {
+export function openTabInBackground(website_merchants: any) {
+  website_merchants.map((website_merchant: any) => {
     let newUrl
-    if (!url.includes('?')) {
-      newUrl = url + '?auto_scrape=1'
-    } else newUrl = url + '&auto_scrape=1'
+    if (!website_merchant.url.includes('?')) {
+      newUrl =
+        website_merchant.url +
+        `?auto_scrape=1&merchant_id=${website_merchant.merchant_id}&website_id=${website_merchant.website_id}`
+    } else
+      newUrl =
+        website_merchant.url +
+        `&auto_scrape=1&merchant_id=${website_merchant.merchant_id}&website_id=${website_merchant.website_id}`
+
     chrome.tabs.create({ url: newUrl, active: false })
   })
 }
@@ -256,4 +275,25 @@ export function parseDateToTimestamp(dateStr: string) {
   }
 
   return parseDate(dateStr)
+}
+
+export function getEditorToken() {
+  return new Promise((resolve) => {
+    chrome.storage.local.get('editor_info').then((res) => {
+      resolve(res.editor_info.token)
+    })
+  })
+}
+
+export function getHeaders(token?: string) {
+  return new Promise((resolve) => {
+    getEditorToken().then((token: any) => {
+      if (token != '') {
+        resolve({
+          Authentication: `Bearer ${token != '' ? token : token}`,
+          'Content-Type': 'application/json',
+        })
+      }
+    })
+  })
 }

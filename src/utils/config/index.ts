@@ -68,8 +68,12 @@ export const config = {
   ],
   local_url: 'https://eenfeed.enactweb.com',
   getUserInfoEndpoint: '/api/editor/my/info',
-  getMerchantsEndpoint: '/api/editor/my/merchants',
+  getUserMerchantsEndpoint: '/api/editor/my/merchants',
+  getAllMerchantsEndpoint: '/api/editor/merchants',
   logOutEndPoint: '/api/editor/my/logout',
   bulkUploadPoint: '/api/editor/coupon/bulk',
+  competitorWebsitesEndpoint: '/api/editor/websites',
+  competitorMerchantsEndpoint: '/api/editor/website/merchants',
+  getMerchantInfoEndpoint: '/api/editor/merchant/info/',
   coupon_rejection_keywords: ['CD'],
 }

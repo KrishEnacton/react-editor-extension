@@ -62,9 +62,8 @@ const Dashboard = () => {
   })
 
   useLayoutEffect(() => {
-    getStorage('merchant_lists').then((res: any) => {
-      console.log(res.merchant_lists, 'lists')
-      setFormData(res.merchant_lists)
+    getStorage('user_merchants').then((res: any) => {
+      setFormData(res.user_merchants)
     })
     return () => {}
   }, [])

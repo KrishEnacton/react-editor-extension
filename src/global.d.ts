@@ -18,6 +18,7 @@ export interface MerchantType {
   direct_network_id: number | null
   coupons_count?: number
   stats: any[]
+  coupon_categories?: any[]
   website_merchants: any[]
 }
 export interface CouponType {

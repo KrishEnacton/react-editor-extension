@@ -10,7 +10,7 @@ const Login = () => {
   const [token, setToken] = useState<string>('')
   const { setStorage, getStorage } = useStorage()
   const navigate = useNavigate()
-  const { getMerchantList } = useAPIFunctions()
+  const { initialApiCalls } = useAPIFunctions()
   function saveToken(token: string) {
     api.validate(config.local_url + config.getUserInfoEndpoint, token).then((res: any) => {
       if (res.id) {
@@ -20,7 +20,7 @@ const Login = () => {
             navigate('/dashboard')
           }
         })
-        getMerchantList()
+        initialApiCalls()
       }
     })
   }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useLayoutEffect, useState } from 'react'
 import CrossIcon from '@heroicons/react/24/outline/XMarkIcon'
 import InputField from '../core/InputField'
 
@@ -38,7 +38,6 @@ const AddCouponSlider: React.FC<{}> = ({}) => {
     if (Object.keys(newErrors).length > 0) {
       return
     }
-    console.log({ Coupon })
   }
 
   function toggleSliderHandler() {

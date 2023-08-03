@@ -151,7 +151,11 @@ export const MerchantColumns: any = [
       return (
         <button
           onClick={() => {
-            openTabInBackground([...props.row.original.website_merchants].map((i) => i.url))
+            openTabInBackground(
+              [...props.row.original.website_merchants].map((i) => {
+                return { ...i, categories: props.row.original.coupon_categories }
+              }),
+            )
           }}
           className="flex items-center bg-blue-200 text-black p-3 rounded-md"
         >{`Click to open all the merchants`}</button>

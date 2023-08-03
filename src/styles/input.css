@@ -3,14 +3,14 @@
 @tailwind utilities;
 
 .slide-in {
-  right: -500px;
   animation: slide-in 0.3s ease forwards;
 }
 .slide-out {
-  right: 10px;
   animation: slide-out 0.3s ease forwards;
 }
-
+.hide {
+  display: none;
+}
 @keyframes slide-in {
   from {
     right: -500px;

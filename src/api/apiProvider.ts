@@ -1,17 +1,10 @@
-function getEditorToken() {
-  return new Promise((resolve) => {
-    chrome.storage.local.get('editor_token').then((res) => {
-      resolve(res.editor_token)
-    })
-  })
-}
+import { getHeaders } from '../utils'
+
 export const api = {
   get: function (url: string) {
-    return new Promise((resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
       fetch(url, {
-        headers: {
-          Authentication: `Bearer ${getEditorToken()}`,
-        },
+        headers: (await getHeaders()) as any,
         method: 'GET',
       })
         .then((res) => {
@@ -29,9 +22,7 @@ export const api = {
   post: function (url: string, body: any) {
     return new Promise(async (resolve, reject) => {
       fetch(url, {
-        headers: {
-          Authentication: `Bearer ${await getEditorToken()}`,
-        },
+        headers: (await getHeaders()) as any,
         method: 'POST',
         body: JSON.stringify(body),
       })
@@ -48,12 +39,10 @@ export const api = {
     })
   },
   validate: function (url: string, token: string) {
-    return new Promise((resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
       fetch(url, {
         method: 'GET',
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        headers: (await getHeaders()) as any,
       })
         .then((response) => {
           if (!response.ok) {
