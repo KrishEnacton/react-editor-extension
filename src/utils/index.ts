@@ -182,13 +182,9 @@ export function openTabInBackground(website_merchants: any) {
   website_merchants.map((website_merchant: any) => {
     let newUrl
     if (!website_merchant.url.includes('?')) {
-      newUrl =
-        website_merchant.url +
-        `?auto_scrape=1&merchant_id=${website_merchant.merchant_id}&website_id=${website_merchant.website_id}`
+      newUrl = website_merchant.url + `?auto_scrape=1&website_id=${website_merchant.website_id}`
     } else
-      newUrl =
-        website_merchant.url +
-        `&auto_scrape=1&merchant_id=${website_merchant.merchant_id}&website_id=${website_merchant.website_id}`
+      newUrl = website_merchant.url + `&auto_scrape=1&website_id=${website_merchant.website_id}`
 
     chrome.tabs.create({ url: newUrl, active: false })
   })
