@@ -92,7 +92,7 @@ const DashboardLayout: React.FC<{ children: React.ReactNode }> = ({ children }) 
                       alt="Your Company"
                     />
                   </div>
-                  <nav className="flex flex-1 flex-col">
+                  {/* <nav className="flex flex-1 flex-col">
                     <ul role="list" className="flex flex-1 flex-col gap-y-7">
                       <li>
                         <ul role="list" className="-mx-2 space-y-1">
@@ -123,11 +123,8 @@ const DashboardLayout: React.FC<{ children: React.ReactNode }> = ({ children }) 
                         </ul>
                       </li>
                       <li>
-                        <div className="text-xs font-semibold leading-6 text-indigo-200">
-                          Your teams
-                        </div>
                         <ul role="list" className="-mx-2 mt-2 space-y-1">
-                          {teams.map((team) => (
+                          {teams.map((team: any) => (
                             <li key={team.name}>
                               <a
                                 href={team.href}
@@ -160,7 +157,7 @@ const DashboardLayout: React.FC<{ children: React.ReactNode }> = ({ children }) 
                         </a>
                       </li>
                     </ul>
-                  </nav>
+                  </nav> */}
                 </div>
               </Dialog.Panel>
             </Transition.Child>
@@ -172,18 +169,14 @@ const DashboardLayout: React.FC<{ children: React.ReactNode }> = ({ children }) 
       <div className="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col">
         {/* Sidebar component, swap this element with another sidebar if you like */}
         <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-indigo-600 px-6 pb-4">
-          <div className="flex h-16 shrink-0 items-center">
-            <img
-              className="h-8 w-auto"
-              src="https://tailwindui.com/img/logos/mark.svg?color=white"
-              alt="Your Company"
-            />
+          <div className="flex h-16 shrink-0 items-center text-white text-lg font-bold">
+            Coupomated Extension
           </div>
           <nav className="flex flex-1 flex-col">
             <ul role="list" className="flex flex-1 flex-col gap-y-7">
               <li>
                 <ul role="list" className="-mx-2 space-y-1">
-                  {navigation.map((item) => (
+                  {/* {navigation.map((item) => (
                     <li key={item.name}>
                       <a
                         href={item.href}
@@ -204,13 +197,12 @@ const DashboardLayout: React.FC<{ children: React.ReactNode }> = ({ children }) 
                         {item.name}
                       </a>
                     </li>
-                  ))}
+                  ))} */}
                 </ul>
               </li>
               <li>
-                <div className="text-xs font-semibold leading-6 text-indigo-200">Your teams</div>
                 <ul role="list" className="-mx-2 mt-2 space-y-1">
-                  {teams.map((team) => (
+                  {/* {teams.map((team: any) => (
                     <li key={team.name}>
                       <a
                         href={team.href}
@@ -227,7 +219,7 @@ const DashboardLayout: React.FC<{ children: React.ReactNode }> = ({ children }) 
                         <span className="truncate">{team.name}</span>
                       </a>
                     </li>
-                  ))}
+                  ))} */}
                 </ul>
               </li>
               <li className="mt-auto">
@@ -314,8 +306,8 @@ const DashboardLayout: React.FC<{ children: React.ReactNode }> = ({ children }) 
                   leaveTo="transform opacity-0 scale-95"
                 >
                   <Menu.Items className="absolute right-0 z-10 mt-2.5 w-32 origin-top-right rounded-md bg-white py-2 shadow-lg ring-1 ring-gray-900/5 focus:outline-none">
-                    {userNavigation.map((item) => (
-                      <Menu.Item key={item.name}>
+                    {userNavigation.map((item, index) => (
+                      <Menu.Item key={item.name + index}>
                         {({ active }) => (
                           <span
                             className={classNames(

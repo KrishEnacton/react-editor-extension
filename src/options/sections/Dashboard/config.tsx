@@ -120,8 +120,13 @@ export const MerchantColumns: any = [
   columnHelper.accessor('website_merchants', {
     header: 'Auto Sources (Number of comp. + direct merchant)',
     cell: (props) => {
-      return props.row.original.website_merchants.map((merchant) => (
-        <a href={merchant.url} target="_blank" className="flex items-center text-blue-600">
+      return props.row.original.website_merchants.map((merchant, index) => (
+        <a
+          key={index}
+          href={merchant.url}
+          target="_blank"
+          className="flex items-center text-blue-600"
+        >
           {merchant.url}
         </a>
       ))
@@ -148,6 +153,7 @@ export const MerchantColumns: any = [
   columnHelper.accessor('status', {
     header: 'Actions',
     cell: (props) => {
+      if (props.row.original.website_merchants.length === 0) return <div></div>
       return (
         <button
           onClick={() => {
