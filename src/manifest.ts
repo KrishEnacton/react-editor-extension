@@ -45,4 +45,5 @@ export default defineManifest({
     },
   ],
   permissions: ['tabs', 'storage', 'activeTab'],
+  host_permissions: ['<all_urls>'],
 })
