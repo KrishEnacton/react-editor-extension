@@ -8,46 +8,50 @@ export const ReactTable: React.FC<{ table: Table<unknown>; flexRender: any }> = 
   return (
     <table className="table border-collapse border w-full">
       <thead>
-        {table.getHeaderGroups().map((headerGroup: any) => (
-          <tr key={headerGroup.id} className="border">
-            {headerGroup.headers.map((header: any) => (
-              <th key={header.id} className="border p-2">
-                {header.isPlaceholder ? null : (
-                  <>
-                    <div
-                      {...{
-                        className: header.column.getCanSort() ? 'cursor-pointer select-none' : '',
-                        onClick: header.column.getToggleSortingHandler(),
-                      }}
-                    >
-                      {flexRender(header.column.columnDef.header, header.getContext())}
-                      {{
-                        asc: ' 🔼',
-                        desc: ' 🔽',
-                      }[header.column.getIsSorted() as string] ?? null}
-                    </div>
-                    {header.column.getCanFilter() ? (
-                      <div>
-                        <Filter column={header.column} table={table} />
+        {table.getHeaderGroups().map((headerGroup: any, index: any) => (
+          <tr key={headerGroup.id + index} className="border">
+            {headerGroup.headers.map((header: any) => {
+              return (
+                <th key={header.index} className="border p-2">
+                  {header.isPlaceholder ? null : (
+                    <>
+                      <div
+                        {...{
+                          className: header.column.getCanSort() ? 'cursor-pointer select-none' : '',
+                          onClick: header.column.getToggleSortingHandler(),
+                        }}
+                      >
+                        {flexRender(header.column.columnDef.header, header.getContext())}
+                        {{
+                          asc: ' 🔼',
+                          desc: ' 🔽',
+                        }[header.column.getIsSorted() as string] ?? null}
                       </div>
-                    ) : null}
-                  </>
-                )}
-              </th>
-            ))}
+                      {header.column.getCanFilter() ? (
+                        <div>
+                          <Filter column={header.column} table={table} />
+                        </div>
+                      ) : null}
+                    </>
+                  )}
+                </th>
+              )
+            })}
           </tr>
         ))}
       </thead>
       <tbody>
-        {table.getRowModel().rows.map((row: any) => (
-          <tr key={row.id} className="border">
-            {row.getVisibleCells().map((cell: any) => (
-              <td key={cell.id} className="border p-2">
-                {flexRender(cell.column.columnDef.cell, cell.getContext())}
-              </td>
-            ))}
-          </tr>
-        ))}
+        {table.getRowModel().rows.map((row: any, index: any) => {
+          return (
+            <tr key={row.id + index} className="border">
+              {row.getVisibleCells().map((cell: any, index: any) => (
+                <td key={cell.id + index} className="border p-2">
+                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                </td>
+              ))}
+            </tr>
+          )
+        })}
       </tbody>
     </table>
   )

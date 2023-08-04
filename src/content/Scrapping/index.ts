@@ -41,7 +41,7 @@ export async function startScrapping(merchantConfig: any) {
       payload: { bulkUploadBody },
     },
     (res) => {
-      console.log(res, 'from background')
+      console.log(res, 'response from background')
     },
   )
 }

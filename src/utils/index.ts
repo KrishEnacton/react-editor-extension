@@ -255,13 +255,13 @@ export function parseDateToTimestamp(dateStr: string) {
     if (dateStr.match(dateTimeRegex)) {
       match = dateStr.match(dateTimeRegex)
       const [, year, month, day, hour, minute, second] = match
-      return new Date(year, month - 1, day, hour, minute, second).getTime()
+      return new Date(year, month - 1, day, hour, minute, second).getTime() / 1000
     }
 
     if (dateStr.match(shortDateRegex)) {
       match = dateStr.match(shortDateRegex)
       const [, day, monthName, year] = match
-      return new Date(year, getMonthNumber(monthName), day).getTime()
+      return new Date(year, getMonthNumber(monthName), day).getTime() / 1000
     }
 
     if (dateStr.match(relativeDateRegex)) {
@@ -269,7 +269,7 @@ export function parseDateToTimestamp(dateStr: string) {
       const [, daysToAdd] = match
       const currentDate = new Date()
       currentDate.setDate(currentDate.getDate() + parseInt(daysToAdd))
-      return currentDate.getTime()
+      return currentDate.getTime() / 1000
     }
 
     return NaN // Invalid date format
@@ -291,7 +291,7 @@ export function getHeaders(editor_token?: string) {
     getEditorToken().then((token: any) => {
       if (token != '') {
         resolve({
-          Authentication: `Bearer ${editor_token != '' ? editor_token : token}`,
+          Authentication: `Bearer ${editor_token && editor_token != '' ? editor_token : token}`,
           'Content-Type': 'application/json',
         })
       }
@@ -305,13 +305,11 @@ export async function getToScrappedMerchantAndWebsite() {
     if (new URL(window.location.href).pathname.includes(merchant.domain_name.split('.')[0]))
       return merchant
   })
-  console.log({ merchant })
   const website = merchant.website_merchants.find((website: any) => {
     if (new URL(website.url).hostname == new URL(window.location.href).hostname) {
       return website
     }
   })
-  console.log({ website })
   return {
     merchant,
     website,
@@ -323,7 +321,7 @@ export function getCouponObject(coupon: any, website: any, merchant: any) {
     coupon_code: coupon.coupon_code && coupon.coupon_code !== '' ? coupon.coupon_code : '',
     source: 'comp',
     source_id: website?.website_id.toString(),
-    merchant_id: merchant?.id ?? '',
+    merchant_id: merchant?.id.toString() ?? '',
     merchant_name: merchant?.name ?? '',
     discount: coupon?.discount != '' ? coupon.discount : '',
     raw_description: coupon?.description != '' ? coupon.description : '',
