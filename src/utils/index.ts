@@ -8,6 +8,7 @@ import {
   HomeIcon,
   UsersIcon,
 } from '@heroicons/react/24/outline'
+import { useStorage } from '../hooks/useStorage'
 
 export function notify(message: string, type: 'error' | 'warning' | 'info' | 'success') {
   if (type === 'error') {
@@ -182,9 +183,13 @@ export function openTabInBackground(website_merchants: any) {
   website_merchants.map((website_merchant: any) => {
     let newUrl
     if (!website_merchant.url.includes('?')) {
-      newUrl = website_merchant.url + `?auto_scrape=1&website_id=${website_merchant.website_id}`
+      newUrl =
+        website_merchant.url +
+        `?auto_scrape=1&website_id=${website_merchant.website_id}&merchant_id=${website_merchant.merchant_id}`
     } else
-      newUrl = website_merchant.url + `&auto_scrape=1&website_id=${website_merchant.website_id}`
+      newUrl =
+        website_merchant.url +
+        `&auto_scrape=1&website_id=${website_merchant.website_id}&merchant_id=${website_merchant.merchant_id}`
 
     chrome.tabs.create({ url: newUrl, active: false })
   })
@@ -203,19 +208,19 @@ export function jsToMysqlDate(d: Date) {
 
 export const navigation = [
   { name: 'Dashboard', href: '#', icon: HomeIcon, current: true },
-  { name: 'Team', href: '#', icon: UsersIcon, current: false },
-  { name: 'Projects', href: '#', icon: FolderIcon, current: false },
-  { name: 'Calendar', href: '#', icon: CalendarIcon, current: false },
-  { name: 'Documents', href: '#', icon: DocumentDuplicateIcon, current: false },
-  { name: 'Reports', href: '#', icon: ChartPieIcon, current: false },
+  // { name: 'Team', href: '#', icon: UsersIcon, current: false },
+  // { name: 'Projects', href: '#', icon: FolderIcon, current: false },
+  // { name: 'Calendar', href: '#', icon: CalendarIcon, current: false },
+  // { name: 'Documents', href: '#', icon: DocumentDuplicateIcon, current: false },
+  // { name: 'Reports', href: '#', icon: ChartPieIcon, current: false },
 ]
 export const teams = [
-  { id: 1, name: 'Heroicons', href: '#', initial: 'H', current: false },
-  { id: 2, name: 'Tailwind Labs', href: '#', initial: 'T', current: false },
-  { id: 3, name: 'Workcation', href: '#', initial: 'W', current: false },
+  // { id: 1, name: 'Heroicons', href: '#', initial: 'H', current: false },
+  // { id: 2, name: 'Tailwind Labs', href: '#', initial: 'T', current: false },
+  // { id: 3, name: 'Workcation', href: '#', initial: 'W', current: false },
 ]
 export const userNavigation = [
-  { name: 'Your profile', href: '#' },
+  // { name: 'Your profile', href: '#' },
   { name: 'Sign out', href: '#' },
 ]
 
@@ -281,15 +286,55 @@ export function getEditorToken() {
   })
 }
 
-export function getHeaders(token?: string) {
+export function getHeaders(editor_token?: string) {
   return new Promise((resolve) => {
     getEditorToken().then((token: any) => {
       if (token != '') {
         resolve({
-          Authentication: `Bearer ${token != '' ? token : token}`,
+          Authentication: `Bearer ${editor_token != '' ? editor_token : token}`,
           'Content-Type': 'application/json',
         })
       }
     })
   })
+}
+
+export async function getToScrappedMerchantAndWebsite() {
+  const { getStorage } = useStorage()
+  const merchant = (await getStorage('user_merchants')).user_merchants.find((merchant: any) => {
+    if (new URL(window.location.href).pathname.includes(merchant.domain_name.split('.')[0]))
+      return merchant
+  })
+  console.log({ merchant })
+  const website = merchant.website_merchants.find((website: any) => {
+    if (new URL(website.url).hostname == new URL(window.location.href).hostname) {
+      return website
+    }
+  })
+  console.log({ website })
+  return {
+    merchant,
+    website,
+  }
+}
+
+export function getCouponObject(coupon: any, website: any, merchant: any) {
+  return {
+    coupon_code: coupon.coupon_code && coupon.coupon_code !== '' ? coupon.coupon_code : '',
+    source: 'comp',
+    source_id: website?.website_id.toString(),
+    merchant_id: merchant?.id ?? '',
+    merchant_name: merchant?.name ?? '',
+    discount: coupon?.discount != '' ? coupon.discount : '',
+    raw_description: coupon?.description != '' ? coupon.description : '',
+    raw_title: coupon?.title != '' ? coupon.title : '',
+    offer_type:
+      coupon.title != '' && coupon.title != null && coupon.title.includes('cashback')
+        ? 'cashback'
+        : 'discount',
+    affiliate_link: coupon.affiliate_link != '' ? coupon.affiliate_link : '',
+    expiries_at: coupon?.end_date != '' ? parseDateToTimestamp(coupon.end_date) : 0,
+    source_coupon_id: coupon?.source_coupon_id != '' ? coupon.source_coupon_id : '',
+    categories: null,
+  }
 }

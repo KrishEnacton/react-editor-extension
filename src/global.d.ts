@@ -33,6 +33,6 @@ export interface CouponType {
   offer_type?: string
   discount?: string
   affiliate_link?: string
-  end_date?: number
+  expiries_at?: number
   categories?: string[] | null
 }
