@@ -10,9 +10,9 @@ export const ReactTable: React.FC<{ table: Table<unknown>; flexRender: any }> = 
       <thead>
         {table.getHeaderGroups().map((headerGroup: any, index: any) => (
           <tr key={headerGroup.id + index} className="border">
-            {headerGroup.headers.map((header: any) => {
+            {headerGroup.headers.map((header: any, index: any) => {
               return (
-                <th key={header.index} className="border p-2">
+                <th key={header.index + index} className="border p-2">
                   {header.isPlaceholder ? null : (
                     <>
                       <div

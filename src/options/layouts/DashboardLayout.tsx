@@ -92,7 +92,7 @@ const DashboardLayout: React.FC<{ children: React.ReactNode }> = ({ children }) 
                       alt="Your Company"
                     />
                   </div>
-                  <nav className="flex flex-1 flex-col">
+                  {/* <nav className="flex flex-1 flex-col">
                     <ul role="list" className="flex flex-1 flex-col gap-y-7">
                       <li>
                         <ul role="list" className="-mx-2 space-y-1">
@@ -157,7 +157,7 @@ const DashboardLayout: React.FC<{ children: React.ReactNode }> = ({ children }) 
                         </a>
                       </li>
                     </ul>
-                  </nav>
+                  </nav> */}
                 </div>
               </Dialog.Panel>
             </Transition.Child>
@@ -176,7 +176,7 @@ const DashboardLayout: React.FC<{ children: React.ReactNode }> = ({ children }) 
             <ul role="list" className="flex flex-1 flex-col gap-y-7">
               <li>
                 <ul role="list" className="-mx-2 space-y-1">
-                  {navigation.map((item) => (
+                  {/* {navigation.map((item) => (
                     <li key={item.name}>
                       <a
                         href={item.href}
@@ -197,12 +197,12 @@ const DashboardLayout: React.FC<{ children: React.ReactNode }> = ({ children }) 
                         {item.name}
                       </a>
                     </li>
-                  ))}
+                  ))} */}
                 </ul>
               </li>
               <li>
                 <ul role="list" className="-mx-2 mt-2 space-y-1">
-                  {teams.map((team: any) => (
+                  {/* {teams.map((team: any) => (
                     <li key={team.name}>
                       <a
                         href={team.href}
@@ -219,7 +219,7 @@ const DashboardLayout: React.FC<{ children: React.ReactNode }> = ({ children }) 
                         <span className="truncate">{team.name}</span>
                       </a>
                     </li>
-                  ))}
+                  ))} */}
                 </ul>
               </li>
               <li className="mt-auto">
@@ -306,8 +306,8 @@ const DashboardLayout: React.FC<{ children: React.ReactNode }> = ({ children }) 
                   leaveTo="transform opacity-0 scale-95"
                 >
                   <Menu.Items className="absolute right-0 z-10 mt-2.5 w-32 origin-top-right rounded-md bg-white py-2 shadow-lg ring-1 ring-gray-900/5 focus:outline-none">
-                    {userNavigation.map((item) => (
-                      <Menu.Item key={item.name}>
+                    {userNavigation.map((item, index) => (
+                      <Menu.Item key={item.name + index}>
                         {({ active }) => (
                           <span
                             className={classNames(

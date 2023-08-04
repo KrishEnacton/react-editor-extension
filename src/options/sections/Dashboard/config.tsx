@@ -120,31 +120,36 @@ export const MerchantColumns: any = [
   columnHelper.accessor('website_merchants', {
     header: 'Auto Sources (Number of comp. + direct merchant)',
     cell: (props) => {
-      return props.row.original.website_merchants.map((merchant) => (
-        <a href={merchant.url} target="_blank" className="flex items-center text-blue-600">
+      return props.row.original.website_merchants.map((merchant, index) => (
+        <a
+          key={index}
+          href={merchant.url}
+          target="_blank"
+          className="flex items-center text-blue-600"
+        >
           {merchant.url}
         </a>
       ))
     },
   }),
-  // columnHelper.accessor('status', {
-  //   header: 'Pending Offers (On click open page with all pending offers view)',
-  // }),
-  // columnHelper.accessor('status', {
-  //   header: 'Active Offers (On click open page with all active offers view)',
-  // }),
-  // columnHelper.accessor('status', {
-  //   header: 'Expired Offers(On click open page with all expired offers view)',
-  // }),
-  // columnHelper.accessor('status', {
-  //   header: 'Last Editor Reviewed (3 days ago|Today) ',
-  // }),
-  // columnHelper.accessor('status', {
-  //   header: 'Oldest Active Offer   (3 days ago|Today) ',
-  // }),
-  // columnHelper.accessor('status', {
-  //   header: 'Last Sourced At (Date & time)',
-  // }),
+  columnHelper.accessor('status', {
+    header: 'Pending Offers (On click open page with all pending offers view)',
+  }),
+  columnHelper.accessor('status', {
+    header: 'Active Offers (On click open page with all active offers view)',
+  }),
+  columnHelper.accessor('status', {
+    header: 'Expired Offers(On click open page with all expired offers view)',
+  }),
+  columnHelper.accessor('status', {
+    header: 'Last Editor Reviewed (3 days ago|Today) ',
+  }),
+  columnHelper.accessor('status', {
+    header: 'Oldest Active Offer   (3 days ago|Today) ',
+  }),
+  columnHelper.accessor('status', {
+    header: 'Last Sourced At (Date & time)',
+  }),
   columnHelper.accessor('status', {
     header: 'Actions',
     cell: (props) => {
